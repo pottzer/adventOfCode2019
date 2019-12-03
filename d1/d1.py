@@ -1,14 +1,23 @@
 import math
 
-class Module:
-    def __init__(self, setMass):
-        self.mass = setMass
-
-def getFuelForModule(module):
+def getFuelForModuleStarOne(module):
     fuel = module.mass/3
     fuel = truncate(fuel)
     fuel -= 2
     print("Amount of fuel:", fuel)
+    return fuel
+
+def getFuelForModuleStarTwo(originalFuel):
+    fuel = originalFuel/3
+    fuel = truncate(fuel)
+    fuel -= 2
+    print("Amount of fuel:", fuel)
+    if(fuel > 0):
+        fuel += getFuelForModuleStarTwo(fuel)
+    else:
+        fuel = 0
+        return fuel
+    print("totalFuelAmount:", fuel)
     return fuel
 
 def truncate(n, decimals=0):
@@ -22,7 +31,8 @@ def readDataFile():
 fuelSum = 0
 fileData = readDataFile()
 for x in fileData:
-    
-    fuelSum += getFuelForModule(Module(int(x)))
+    #fuelSum += getFuelForModuleStarOne(int(x))
+    fuelSum += getFuelForModuleStarTwo(int(x))
 
+#fuelSum += getFuelForModuleStarTwo(1969)
 print(fuelSum)
